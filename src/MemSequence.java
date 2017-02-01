@@ -19,7 +19,7 @@ public class MemSequence extends Composite {
 		Context c = (Context)context; 
 		for (; c.index < children.size(); c.index++) {
 			NodeStatus status = children.get(c.index).execute(tick);
-			if (status != NodeStatus.Success) 
+			if (!status.equals(NodeStatus.Success)) 
 				return status;
 		}
 		return NodeStatus.Success;
@@ -30,5 +30,4 @@ public class MemSequence extends Composite {
 		Context c = (Context)tick.GetContext(this);
 		c.index = 0;
 	}
-	
 }

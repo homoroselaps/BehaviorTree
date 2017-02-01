@@ -14,7 +14,7 @@ public class Sequence extends Composite {
 	protected <T> NodeStatus onTick(Tick<T> tick, NodeContext context) { 
 		for (BaseNode node : children) {
 			NodeStatus status = node.execute(tick);
-			if (status != NodeStatus.Success) 
+			if (!status.equals(NodeStatus.Success)) 
 				return status;
 		}
 		return NodeStatus.Success;

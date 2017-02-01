@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class DebugNode extends Action {
+class DebugNode extends BaseNode {
 	@Override
 	protected <T> void onEnter(Tick<T> tick, NodeContext context) { 
 		System.out.println(this.getID() + ": onEnter");

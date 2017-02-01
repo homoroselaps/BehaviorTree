@@ -29,7 +29,7 @@ public class BaseNode {
 		enter(tick, c);
 		open(tick, c);
 		NodeStatus status = this.tick(tick, c);
-		if (status != NodeStatus.Running) {
+		if (!status.equals(NodeStatus.Running)) {
 			close(tick, c);
 		}
 		exit(tick, c);
