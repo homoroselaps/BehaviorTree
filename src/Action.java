@@ -8,7 +8,7 @@ public class Action extends BaseNode {
 	}
 	
 	@Override
-	protected <T> NodeStatus onTick(Tick<T> tick, NodeContext context) {
+	protected <T> NodeStatus onTick(Tick<T> tick) {
 		return action.run(tick.Target);
 	}
 }

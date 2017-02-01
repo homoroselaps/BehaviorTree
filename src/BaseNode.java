@@ -2,17 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BaseNode {
-	
-	static class Context extends NodeContext {
-		private boolean IsOpen = false;
-		public Context(NodeContext context) {
-			super(context);
-		}
-	}
-	
-	public NodeContext buildContext(NodeContext context) { 
-		return new Context(context);
-	}
+	private boolean isOpen = false;
 	
 	private int ID;
 	public int getID() { return ID; }
@@ -25,55 +15,54 @@ public class BaseNode {
 	}
 
 	public <T> NodeStatus execute(Tick<T> tick) {
-		Context c = (Context)tick.GetContext(this);
-		enter(tick, c);
-		open(tick, c);
-		NodeStatus status = this.tick(tick, c);
+		enter(tick);
+		open(tick);
+		NodeStatus status = this.tick(tick);
 		if (!status.equals(NodeStatus.Running)) {
-			close(tick, c);
+			close(tick);
 		}
-		exit(tick, c);
+		exit(tick);
 		return status;
 	}
 
-	private <T> void enter(Tick<T> tick, Context c) {
+	private <T> void enter(Tick<T> tick) {
 		tick.EnterNode(this);
-		onEnter(tick,c);
+		onEnter(tick);
 	}
 
-	private <T> void open(Tick<T> tick, Context c) {
-		if (!c.IsOpen) {
+	private <T> void open(Tick<T> tick) {
+		if (!isOpen) {
 			tick.OpenNode(this);
-			c.IsOpen = true;
-			onOpen(tick,c);	
+			isOpen = true;
+			onOpen(tick);	
 		}		
 	}
 	
-	private <T> NodeStatus tick(Tick<T> tick, Context c) {
+	private <T> NodeStatus tick(Tick<T> tick) {
 		tick.TickNode(this);
-		return onTick(tick,c);
+		return onTick(tick);
 	}
 
-	public <T> void close(Tick<T> tick, Context c) {
-		if (c.IsOpen) {
+	public <T> void close(Tick<T> tick) {
+		if (isOpen) {
 			tick.CloseNode(this);
-			c.IsOpen = false;
-			onClose(tick,c);
+			isOpen = false;
+			onClose(tick);
 		}
 	}
 
-	private <T> void exit(Tick<T> tick, Context context) {
+	private <T> void exit(Tick<T> tick) {
 		tick.ExitNode(this);
-		onExit(tick,context);
+		onExit(tick);
 	}
 	
-	protected <T> void onEnter(Tick<T> tick, NodeContext context) { }
-	protected <T> void onOpen(Tick<T> tick, NodeContext context) { }
-	protected <T> NodeStatus onTick(Tick<T> tick, NodeContext context) { 
+	protected <T> void onEnter(Tick<T> tick) { }
+	protected <T> void onOpen(Tick<T> tick) { }
+	protected <T> NodeStatus onTick(Tick<T> tick) { 
 		return NodeStatus.Success;
 	}
-	protected <T> void onClose(Tick<T> tick, NodeContext context) { }
-	protected <T> void onExit(Tick<T> tick, NodeContext context) { }
+	protected <T> void onClose(Tick<T> tick) { }
+	protected <T> void onExit(Tick<T> tick) { }
 
 	int initiate(int id) {
 		this.ID = id;

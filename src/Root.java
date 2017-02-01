@@ -6,7 +6,7 @@ public class Root extends BaseNode {
 		this.child = child;
 	}
 	@Override
-	protected <T> NodeStatus onTick(Tick<T> tick, NodeContext context) { 
+	protected <T> NodeStatus onTick(Tick<T> tick) { 
 		return child.execute(tick); 
 	}
 	public int initiate() {

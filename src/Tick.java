@@ -6,22 +6,12 @@ public class Tick<T> {
 	public T Target;
 	private Stack<BaseNode> openNodes = new Stack<>();
 	private boolean blockOpenNodes = false;
-	private ContextStorage storage;
 	
-	public Tick(T target, BaseNode root, ContextStorage storage) {
-		this.storage = storage;
+	public Tick(T target, BaseNode root) {
 		this.Root = root;
 		this.Target = target; 
 	}
-	
-	public NodeContext GetContext(BaseNode node) {
-		NodeContext context = storage.GetContext(node);
-		if (context == null) {
-			context = node.buildContext(new NodeContext(null));
-			storage.SetContext(node, context);
-		}
-		return context;
-	}
+
 	
 	public NodeStatus Tick() {
 		LinkedList<BaseNode> lastOpenNodes = new LinkedList<BaseNode>(openNodes);
@@ -36,7 +26,7 @@ public class Tick<T> {
 		}
 		blockOpenNodes = true;
 		for(BaseNode node : lastOpenNodes) {
-			node.close(this, (BaseNode.Context)storage.GetContext(node));
+			node.close(this);
 		}
 		blockOpenNodes = false;
 		return state;

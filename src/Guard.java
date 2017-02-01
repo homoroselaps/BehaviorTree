@@ -9,7 +9,7 @@ public class Guard extends BaseNode {
 	}
 	
 	@Override
-	protected <T> NodeStatus onTick(Tick<T> tick, NodeContext context) {
+	protected <T> NodeStatus onTick(Tick<T> tick) {
 		boolean result = condition.run(tick.Target);
 		if (result) 
 			return child.execute(tick);

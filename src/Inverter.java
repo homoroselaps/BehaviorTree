@@ -7,7 +7,7 @@ public class Inverter extends BaseNode {
 	}
 	
 	@Override
-	protected <T> NodeStatus onTick(Tick<T> tick, NodeContext context) {
+	protected <T> NodeStatus onTick(Tick<T> tick) {
 		NodeStatus result = child.execute(tick);
 		if (result.equals(NodeStatus.Success)) {
 			return NodeStatus.Failure;

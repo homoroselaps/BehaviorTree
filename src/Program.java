@@ -2,66 +2,46 @@ import java.util.Scanner;
 
 class DebugNode extends BaseNode {
 	@Override
-	protected <T> void onEnter(Tick<T> tick, NodeContext context) { 
+	protected <T> void onEnter(Tick<T> tick) { 
 		System.out.println(this.getID() + ": onEnter");
 	}
 	@Override
-	protected <T> void onOpen(Tick<T> tick, NodeContext context) {
+	protected <T> void onOpen(Tick<T> tick) {
 		System.out.println(this.getID() + ": onOpen"); 
 	}
 	@Override
-	protected <T> NodeStatus onTick(Tick<T> tick, NodeContext context) {
+	protected <T> NodeStatus onTick(Tick<T> tick) {
 		System.out.println(this.getID() + ": onTick"); 
-		return super.onTick(tick, context);
+		return super.onTick(tick);
 	}
 	@Override
-	protected <T> void onClose(Tick<T> tick, NodeContext context) {
+	protected <T> void onClose(Tick<T> tick) {
 		System.out.println(this.getID() + ": onClose"); 
 	}
 	@Override
-	protected <T> void onExit(Tick<T> tick, NodeContext context) {
+	protected <T> void onExit(Tick<T> tick) {
 		System.out.println(this.getID() + ": onExit"); 
 	}
 }
 
 class CounterNode extends DebugNode {
-	static class Context extends DebugNode.Context {
-		private int count = 0;
-		private int currentCount;
-		public Context(int count, NodeContext context) {
-			super(context);
-			this.count = count;
-		}	
+	private int count = 0;
+	private int currentCount = 0;
+	
+	public CounterNode(int count) {
+		this.count = count;
 	}
-	@Override
-	public NodeContext buildContext(NodeContext context) { 
-		return new Context(0, context);
-	}
-	@Override
-	protected <T> void onOpen(Tick<T> tick, NodeContext context) {
-		super.onOpen(tick, context);
-		Context c = (Context)context;
-		c.currentCount = c.count;
-	}
-	@Override
-	protected <T> NodeStatus onTick(Tick<T> tick, NodeContext context) {
-		super.onTick(tick, context);
-		Context c = (Context)context; 
-		c.currentCount--;
-		return c.currentCount <= 0 ? NodeStatus.Success : NodeStatus.Running;
-	}
-}
 
-class DummyNode extends CounterNode {
-	static class Context extends CounterNode.Context {
-
-		public Context(int count, NodeContext context) {
-			super(count, context);
-		}
+	@Override
+	protected <T> void onOpen(Tick<T> tick) {
+		super.onOpen(tick);
+		currentCount = count;
 	}
 	@Override
-	public NodeContext buildContext(NodeContext context) { 
-		return new Context(2, context);
+	protected <T> NodeStatus onTick(Tick<T> tick) {
+		super.onTick(tick);
+		currentCount--;
+		return currentCount <= 0 ? NodeStatus.Success : NodeStatus.Running;
 	}
 }
 
@@ -72,12 +52,11 @@ public class Program {
 		System.out.println("Write '' to continue");
 		
 		Root root = new Root(new MemSequence(
-				new DummyNode(),
+				new CounterNode(2),
 				new DebugNode()
 		));
-		int maxID = root.initiate();
-		ContextStorage storage = new ContextStorage(maxID+1);
-		Tick<Object> tick = new Tick<Object>(null, root, storage);
+		root.initiate();
+		Tick<Object> tick = new Tick<Object>(null, root);
 		
 		Scanner scanner = new Scanner(System.in);
 		while (true) {

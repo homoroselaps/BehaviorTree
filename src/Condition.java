@@ -7,7 +7,7 @@ public class Condition extends BaseNode {
 	}
 	
 	@Override
-	protected <T> NodeStatus onTick(Tick<T> tick, NodeContext context) {
+	protected <T> NodeStatus onTick(Tick<T> tick) {
 		return condition.run(tick.Target) ? NodeStatus.Success : NodeStatus.Failure;
 	}
 }
