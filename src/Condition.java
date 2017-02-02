@@ -1,4 +1,4 @@
-public class Condition extends BaseNode {
+public class Condition extends Node {
 	private INodeCondition condition;
 
 	public Condition(INodeCondition condition) {

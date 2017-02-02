@@ -1,7 +1,7 @@
-public class Inverter extends BaseNode {
-	protected BaseNode child;
+public class Inverter extends Node {
+	protected Node child;
 
-	public Inverter(BaseNode child) {
+	public Inverter(Node child) {
 		super();
 		this.child = child;
 	}

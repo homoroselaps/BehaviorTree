@@ -2,22 +2,22 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 public class Tick<T> {
-	public BaseNode Root;
+	public Root Root;
 	public T Target;
-	private Stack<BaseNode> openNodes = new Stack<>();
+	private Stack<Node> openNodes = new Stack<>();
 	private boolean blockOpenNodes = false;
 	
-	public Tick(T target, BaseNode root) {
+	public Tick(T target, Root root) {
 		this.Root = root;
 		this.Target = target; 
 	}
 
 	
 	public NodeStatus Tick() {
-		LinkedList<BaseNode> lastOpenNodes = new LinkedList<BaseNode>(openNodes);
+		LinkedList<Node> lastOpenNodes = new LinkedList<Node>(openNodes);
 		openNodes.clear();
 		NodeStatus state = Root.execute(this);
-		for(BaseNode node : openNodes) {
+		for(Node node : openNodes) {
 			if (lastOpenNodes.size() <= 0) break;
 			if (node == lastOpenNodes.peek())
 				lastOpenNodes.removeFirst();
@@ -25,32 +25,32 @@ public class Tick<T> {
 				break;
 		}
 		blockOpenNodes = true;
-		for(BaseNode node : lastOpenNodes) {
+		for(Node node : lastOpenNodes) {
 			node.close(this);
 		}
 		blockOpenNodes = false;
 		return state;
 	}
 	
-	public void EnterNode(BaseNode node) {
+	public void EnterNode(Node node) {
 		if (!blockOpenNodes)
 			openNodes.push(node);
 	}
 	
-	public void OpenNode(BaseNode node) {
+	public void OpenNode(Node node) {
 		
 	}
 	
-	public void TickNode(BaseNode node) {
+	public void TickNode(Node node) {
 		
 	}
 	
-	public void CloseNode(BaseNode node) {
+	public void CloseNode(Node node) {
 		if (!blockOpenNodes)
 			openNodes.pop();
 	}
 	
-	public void ExitNode(BaseNode node) {
+	public void ExitNode(Node node) {
 		
 	}
 	

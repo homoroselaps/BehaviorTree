@@ -1,6 +1,6 @@
 
-public class Composite extends BaseNode {
-	public Composite(BaseNode... children) {
+public class Composite extends Node {
+	public Composite(Node... children) {
 		super(children);
 	}
 

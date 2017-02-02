@@ -1,8 +1,8 @@
 
-public class Operator extends BaseNode {
-	public BaseNode left,right;
+public class Operator extends Node {
+	public Node left,right;
 
-	public Operator(BaseNode left, BaseNode right) {
+	public Operator(Node left, Node right) {
 		super(left, right);
 	}
 

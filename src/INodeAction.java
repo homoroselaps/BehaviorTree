@@ -1,4 +1,4 @@
 
-public interface INodeAction {
-	<T> NodeStatus run(T target);
+public interface INodeAction<T> {
+	NodeStatus run(T target);
 }

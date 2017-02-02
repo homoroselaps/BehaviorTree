@@ -1,4 +1,4 @@
 
-public interface INodeCondition {
-	<T> boolean run(T target);
+public interface INodeCondition<T> {
+	boolean run(T target);
 }

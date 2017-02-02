@@ -1,5 +1,5 @@
 
-public class Action extends BaseNode {
+public class Action extends Node {
 	private INodeAction action;
 
 	public Action(INodeAction action) {

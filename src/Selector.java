@@ -1,7 +1,7 @@
 
-public class Sequence extends Composite {
+public class Selector extends Composite {
 
-	public Sequence(Node... children) {
+	public Selector(Node... children) {
 		super(children);
 	}
 	
@@ -9,9 +9,9 @@ public class Sequence extends Composite {
 	protected <T> NodeStatus onTick(Tick<T> tick) { 
 		for (Node node : children) {
 			NodeStatus status = node.execute(tick);
-			if (!status.equals(NodeStatus.Success)) 
+			if (!status.equals(NodeStatus.Failure)) 
 				return status;
 		}
-		return NodeStatus.Success;
+		return NodeStatus.Failure;
 	}
 }

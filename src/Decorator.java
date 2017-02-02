@@ -1,7 +1,7 @@
-public class Decorator extends BaseNode {
+public class Decorator extends Node {
 
-	public BaseNode child;
-	public Decorator(BaseNode child) {
+	public Node child;
+	public Decorator(Node child) {
 		super(child);
 		this.child = child;
 	}

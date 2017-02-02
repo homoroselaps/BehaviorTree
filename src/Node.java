@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class BaseNode {
+public class Node {
 	private boolean isOpen = false;
 	
 	private int ID;
 	public int getID() { return ID; }
 	
-	protected ArrayList<BaseNode> children;
+	protected ArrayList<Node> children;
 	
-	public BaseNode(BaseNode... children) {
+	public Node(Node... children) {
 		this.children = new ArrayList<>(children.length);
 		this.children.addAll(Arrays.asList(children));
 	}
@@ -64,12 +64,12 @@ public class BaseNode {
 	protected <T> void onClose(Tick<T> tick) { }
 	protected <T> void onExit(Tick<T> tick) { }
 
-	int initiate(int id) {
-		this.ID = id;
-		for (BaseNode child : children) {
-			id++;
-			child.initiate(id);
+	int initiate(int maxId) {
+		maxId++;
+		this.ID = maxId;
+		for (Node child : children) {
+			maxId = child.initiate(maxId);
 		}
-		return id;
+		return maxId;
 	}
 }
