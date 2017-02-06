@@ -1,4 +1,18 @@
+package simpleBehaviorTree;
 import java.util.Scanner;
+
+import simpleBehaviorTree.nodes.Action;
+import simpleBehaviorTree.nodes.Condition;
+import simpleBehaviorTree.nodes.Guard;
+import simpleBehaviorTree.nodes.INodeAction;
+import simpleBehaviorTree.nodes.INodeCondition;
+import simpleBehaviorTree.nodes.MemSelector;
+import simpleBehaviorTree.nodes.MemSequence;
+import simpleBehaviorTree.nodes.Node;
+import simpleBehaviorTree.nodes.NodeStatus;
+import simpleBehaviorTree.nodes.Root;
+import simpleBehaviorTree.nodes.Selector;
+import simpleBehaviorTree.nodes.Sequence;
 
 class DebugNode extends Node {
 	@Override

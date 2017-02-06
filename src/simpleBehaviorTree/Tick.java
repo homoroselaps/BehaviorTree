@@ -1,5 +1,10 @@
+package simpleBehaviorTree;
 import java.util.LinkedList;
 import java.util.Stack;
+
+import simpleBehaviorTree.nodes.Node;
+import simpleBehaviorTree.nodes.NodeStatus;
+import simpleBehaviorTree.nodes.Root;
 
 public class Tick<T> {
 	public Root Root;

@@ -1,3 +1,5 @@
+package simpleBehaviorTree.nodes;
+import simpleBehaviorTree.Tick;
 
 public class Action extends Node {
 	private INodeAction action;

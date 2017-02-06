@@ -1,3 +1,6 @@
+package simpleBehaviorTree.nodes;
+import simpleBehaviorTree.Tick;
+
 public class Condition extends Node {
 	private INodeCondition condition;
 

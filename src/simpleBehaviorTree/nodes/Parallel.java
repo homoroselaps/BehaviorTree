@@ -1,3 +1,6 @@
+package simpleBehaviorTree.nodes;
+import simpleBehaviorTree.Tick;
+
 public class Parallel extends Composite {
 	public enum Policy {
 		ONE,

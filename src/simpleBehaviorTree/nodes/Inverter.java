@@ -1,3 +1,6 @@
+package simpleBehaviorTree.nodes;
+import simpleBehaviorTree.Tick;
+
 public class Inverter extends Node {
 	protected Node child;
 

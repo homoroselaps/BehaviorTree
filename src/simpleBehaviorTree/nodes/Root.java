@@ -1,3 +1,5 @@
+package simpleBehaviorTree.nodes;
+import simpleBehaviorTree.Tick;
 
 public class Root extends Node {
 	protected Node child;

@@ -1,3 +1,4 @@
+package simpleBehaviorTree.nodes;
 
 public class NodeStatus {
 	private enum Status {

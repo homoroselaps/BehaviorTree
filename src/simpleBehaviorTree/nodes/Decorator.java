@@ -1,3 +1,4 @@
+package simpleBehaviorTree.nodes;
 public class Decorator extends Node {
 
 	public Node child;

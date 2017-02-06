@@ -1,7 +1,10 @@
-public class MemSelector extends Composite {
+package simpleBehaviorTree.nodes;
+import simpleBehaviorTree.Tick;
+
+public class MemSequence extends Composite {
 	private int index = 0;
 
-	public MemSelector(Node... children) {
+	public MemSequence(Node... children) {
 		super(children);
 	}
 	
@@ -9,10 +12,10 @@ public class MemSelector extends Composite {
 	protected <T> NodeStatus onTick(Tick<T> tick) { 
 		for (; index < children.size(); index++) {
 			NodeStatus status = children.get(index).execute(tick);
-			if (!status.equals(NodeStatus.Failure)) 
+			if (!status.equals(NodeStatus.Success)) 
 				return status;
 		}
-		return NodeStatus.Failure;
+		return NodeStatus.Success;
 	}
 	
 	@Override

@@ -1,3 +1,6 @@
+package simpleBehaviorTree.nodes;
+import simpleBehaviorTree.Tick;
+
 public class Guard extends Node {
 	protected INodeCondition condition;
 	protected Node child;

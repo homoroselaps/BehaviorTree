@@ -1,5 +1,8 @@
+package simpleBehaviorTree.nodes;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import simpleBehaviorTree.Tick;
 
 public class Node {
 	private boolean isOpen = false;

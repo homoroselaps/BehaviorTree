@@ -1,3 +1,4 @@
+package simpleBehaviorTree.nodes;
 
 public class Operator extends Node {
 	public Node left,right;
