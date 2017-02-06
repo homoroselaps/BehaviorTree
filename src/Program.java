@@ -138,7 +138,6 @@ public class Program {
 		
 		Root root = new Root(new MemSelector(
 			new Sequence(
-				new Condition(new isNameSet()),
 				new Condition(new isAgeSet()),
 				new Condition(new isFunnySet()),
 				new Action(new printPerson())
@@ -158,17 +157,12 @@ public class Program {
 			),
 			new Selector(new Condition(new isAgeSet()), new Action(new setAge())),
 			new Selector(new Condition(new isFunnySet()), new Action(new setFunny())),
-			new Sequence(
-				new Condition(new isNameSet()),
-				new Condition(new isAgeSet()),
-				new Condition(new isFunnySet()),
-				new Action(new printPerson())
-			)
+			new Action(new printPerson())
 		)).init();
 		Person p = new Person();
 		Scanner scanner = new Scanner(System.in);
 		p.scan = scanner;
-		Tick<Person> tick = new Tick<Person>(p, test);
+		Tick<Person> tick = new Tick<Person>(p, root);
 		System.out.println("Node Count: "+tick.Root.getChildrenCount());
 		while (true) {
 			System.out.println("Press [enter] to continue");
