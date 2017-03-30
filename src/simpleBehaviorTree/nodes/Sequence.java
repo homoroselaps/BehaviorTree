@@ -1,15 +1,19 @@
 package simpleBehaviorTree.nodes;
+import simpleBehaviorTree.Composite;
+import simpleBehaviorTree.Node;
+import simpleBehaviorTree.NodeStatus;
 import simpleBehaviorTree.Tick;
 
-public class Sequence extends Composite {
+public class Sequence<T> extends Composite<T> {
 
-	public Sequence(Node... children) {
+	@SafeVarargs
+	public Sequence(Node<T>... children) {
 		super(children);
 	}
 	
 	@Override
-	protected <T> NodeStatus onTick(Tick<T> tick) { 
-		for (Node node : children) {
+	protected NodeStatus onTick(Tick<T> tick) { 
+		for (Node<T> node : children) {
 			NodeStatus status = node.execute(tick);
 			if (!status.equals(NodeStatus.Success)) 
 				return status;

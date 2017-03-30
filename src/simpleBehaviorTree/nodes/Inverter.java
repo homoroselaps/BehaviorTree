@@ -1,16 +1,17 @@
 package simpleBehaviorTree.nodes;
+import simpleBehaviorTree.Decorator;
+import simpleBehaviorTree.Node;
+import simpleBehaviorTree.NodeStatus;
 import simpleBehaviorTree.Tick;
 
-public class Inverter extends Node {
-	protected Node child;
-
-	public Inverter(Node child) {
-		super();
-		this.child = child;
-	}
+public class Inverter<T> extends Decorator<T> {
 	
+	public Inverter(Node<T> child) {
+		super(child);
+	}
+
 	@Override
-	protected <T> NodeStatus onTick(Tick<T> tick) {
+	protected NodeStatus onTick(Tick<T> tick) {
 		NodeStatus result = child.execute(tick);
 		if (result.equals(NodeStatus.Success)) {
 			return NodeStatus.Failure;

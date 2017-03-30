@@ -1,16 +1,20 @@
 package simpleBehaviorTree.nodes;
+import java.util.function.Function;
+
+import simpleBehaviorTree.Node;
+import simpleBehaviorTree.NodeStatus;
 import simpleBehaviorTree.Tick;
 
-public class Condition extends Node {
-	private INodeCondition condition;
+public class Condition<T> extends Node<T> {
+	private Function<T,Boolean> condition;
 
-	public Condition(INodeCondition condition) {
+	public Condition(Function<T,Boolean> condition) {
 		super();
 		this.condition = condition;
 	}
 	
 	@Override
-	protected <T> NodeStatus onTick(Tick<T> tick) {
-		return condition.run(tick.Target) ? NodeStatus.Success : NodeStatus.Failure;
+	protected NodeStatus onTick(Tick<T> tick) {
+		return condition.apply(tick.Target) ? NodeStatus.Success : NodeStatus.Failure;
 	}
 }

@@ -1,4 +1,4 @@
-package simpleBehaviorTree.nodes;
+package simpleBehaviorTree;
 
 public class NodeStatus {
 	private enum Status {
@@ -18,6 +18,7 @@ public class NodeStatus {
 	
 	private Object value;
 	private Status status;
+	
 	private NodeStatus(Status s) { 
 		status = s;
 	}
@@ -29,6 +30,10 @@ public class NodeStatus {
 	
 	public boolean equals(NodeStatus other) {
 		return this.status == other.status;
+	}
+	
+	public Object getValue() {
+		return value;
 	}
 	
 	@Override
